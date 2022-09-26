@@ -7,7 +7,9 @@ router.post('/signup',signup)
 router.post('/login',login)
 router.post('/logout',logout)
 
-router.route('/verify',verifyEmail)
+router.psot('/verify',verifyEmail)
+router.get('/verify:token',verifyEmail)
+
 router.route('/me')
     .get(protect,getMe)
 

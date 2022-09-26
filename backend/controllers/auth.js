@@ -48,13 +48,38 @@ const CreateAndSendEmailVerification = async (user,res) => {
             subject:"Verify Your Account",
             message
         })
-        res.status(200).json(success("Token sent to Email"))
+        res.status(200).json(success("Verify Token sent to Email"))
     } catch (error) {
         user.verifyToken = undefined
         user.verifyTokenExpires = undefined
         await user.save({ validateBeforeSave: false });
         return res.status(500).json(fail("Error sending verification token"))
     }
+}
+const createAndSendPasswordReset = async (user,res)=>{
+    try {
+        //GENERATE RESET TOKEN
+        const resetToken = user.createPasswordResetToken();
+        // SAVE USER
+        await user.save({validateBeforeSave:false});
+        const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+        const message = `Verify Your Account go to this link to verify your account ${verifyUrl}`;
+        await sendEmail({
+            email:user.email,
+            subject:"Verify Your Account",
+            message
+        })
+        res.status(200).json(success("Reset Token sent to Email"))
+
+
+    } catch (error) {
+        user.createPasswordResetToken = undefined;
+        user.passwordResetExpires = undefined;
+        await user.save({validateBeforeSave:false})
+        return res.status(500).json(fail("Error sending verification token"))
+    }
+
+
 }
 
 export const signup = async(req,res,next) => {
@@ -97,5 +122,131 @@ export const verifyEmail = async (req,res) =>{
         res.status(500).json(fail(error.message))
     }
 }
+
+export const login = async(req, res, next) => {
+    // GET EMAIL AND PASSWORD FROM REQUEST
+    const {email,password} = req.body;
+    try {
+        // CHECK EMAIL AND PASSWORD EXISTS
+        if(!email || !password) {
+            throw new Error("Please provide email and password")
+        }
+        // FIND USER BY EMAIL
+        const user = await User.findOne({email}).select('+password')
+        // CHECK IF ACCOUNT IS VERIFIED
+        if(!user.verified){
+            return CreateAndSendEmailVerification(user,res);
+        }
+
+        if(!user || ! (await user.correctPassword(password,user.password))) {
+            throw new Error("Invalid email or password")
+
+        }
+        // CREATE AND SEND NEW JWT TOKEN
+        createSendToken(user,200,res);
+
+    } catch (error) {
+        res.status(400).json(fail(error.message));
+    }
+}
+
+export const logout = async(req, res, next) => {
+    res.cookie('jwt', 'xxxx', {
+        expires: new Date(Date.now()),
+        httpOnly: true
+      });      
+      res.status(200).json(success("Logout successfully"));  
+}
+
+export const protect = async (req, res,next) => {
+    try {
+        // CHECK IF TOKEN IS IN REQUEST
+        if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+            token = req.headers.authorization.split(' ')[1];
+        } 
+        else if(req.cookies.jwt){
+            token = req.cookies.jwt;
+        }
+        // Check if token is Not found
+        if(!token)
+        {
+            throw new Error("You ARE NOT LOGGED IN  PLEASE LOGIN AND TRY AGAIN");
+        }
+        // VERIFY JWT TOKEN;
+        const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET);
+
+        // SEARCH FOR USER
+        const currentUser = await User.findById(decoded.id);
+        // IF NO USER FOUND THROW ERROR
+        if(!currentUser)
+        {
+            throw new Error("No such user");
+        }
+        /**
+         *  IF user hasn't Verifies his email yet, send him an email to verify
+         */
+        if(!currentUser.verified)
+        {
+            return CreateAndSendEmailVerification(currentUser,res)
+        }
+        /**
+         * IF USER CHANGED PASSWORD AFTER ISSUING JWT TOKEN
+         * ASK HIM TO SING IN AGAIN
+         * 
+         */
+         if (currentUser.changedPasswordAfter(decoded.iat)) {
+            throw new Error("Please Login again to continue")
+          }
+        // ADD USER TO REQUEST
+         req.user = currentUser;
+         // IF NO ERROR UP TILL NOW THEN PASSED AND GO TO NEXT MIDDLEWARE
+         next();        
+        
+    } catch (error) {
+        res.status(400).json(fail(error.message))
+    }
+
+}
+
+export const forgotPassword = async (req, res, next) =>{
+    try {
+        const user = await User.findOne({email:req.body.email});
+        if(!user) throw new Error("There is no user with email " + req.body.email);
+        return createAndSendPasswordReset(user,res);
+
+    } catch (error) {
+        return res.status(500).json(fail(error.message))        
+    }
+};
+export const resetPassword = async (req, res, next) =>{
+    try {
+        const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+        // FIND USER BY TOKEN
+        const user = await User.findOne({
+            passwordResetToken: hashedToken,
+            passwordResetExpires:{$gt:Date.now()}
+        });
+         // IF NO USER THROW ERROR
+         if(!user) throw new Error("TOken is invalid or expired")
+         // CHANGE PASSWORD 
+         user.password = req.body.password;
+         //  REMOVE RESET TOKKEN FROM DATABASE
+         user.passwordResetToken = undefined;
+         user.passwordResetExpires = undefined;
+         await user.save();
+         // SEND NEW JWT TOKEN
+         createSendToken(user,201,res)
+
+    } catch (error) {
+        console.log("Error",error);
+        res.status(500).json({
+            status:"Failed",
+            message:error.message
+        })
+    }
+}
+
+
 
 
