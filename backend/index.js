@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import connectDB from "./db/connect.js";
-
+import userRouter from "./routes/user.js"
+import taskRouter from "./routes/task.js"
 // CONSTANTS
 dotenv.config();
 const PORT = process.env.PORT || 5001;
