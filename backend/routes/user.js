@@ -11,7 +11,7 @@ router.post('/login',login)
 router.post('/logout',logout)
 
 // router.psot('/verify',verifyEmail)
-router.get('/verify:token',verifyEmail)
+router.get('/verify/:token',verifyEmail)
 
 router.route('/me')
     .get(protect,getMe)

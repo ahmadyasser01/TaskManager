@@ -19,9 +19,6 @@ export const  filterObj = (obj, ...allowedFields) => {
     Object.keys(obj).forEach(el => {
       if (allowedFields.includes(el)) newObj[el] = obj[el];
     });
-    console.log('====================================');
-    console.log(newObj,Object.keys(obj).length);
-    console.log('====================================');
     return newObj;
   };
 

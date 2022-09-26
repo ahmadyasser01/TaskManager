@@ -2,7 +2,7 @@ import User from '../models/user.js'
 import jwt from 'jsonwebtoken'
 import crypto from "crypto"
 import {promisify} from "util"
-import {sendEmail} from '../utils/EmailSenderDev.js'
+import {sendEmail} from '../utils/EmailSenderProd.js'
 import { fail, success } from '../utils/apiUtils.js'
 
 
@@ -35,7 +35,7 @@ const createSendToken = (user,statusCode,res)=>{
         token
     })
 }
-const CreateAndSendEmailVerification = async (user,res) => {
+const CreateAndSendEmailVerification = async (user,req,res) => {
     // GENERATE RANDOM VERIFY TOKEN
     const verifyToken = user.createVerifyToken();
     await user.save({ validateBeforeSave: false });
@@ -48,7 +48,7 @@ const CreateAndSendEmailVerification = async (user,res) => {
             subject:"Verify Your Account",
             message
         })
-        res.status(200).json(success("Verify Token sent to Email"))
+        return res.status(200).json(success("Verify Token sent to Email"))
     } catch (error) {
         user.verifyToken = undefined
         user.verifyTokenExpires = undefined
@@ -56,17 +56,22 @@ const CreateAndSendEmailVerification = async (user,res) => {
         return res.status(500).json(fail("Error sending verification token"))
     }
 }
-const createAndSendPasswordReset = async (user,res)=>{
+const createAndSendPasswordReset = async (user,req,res)=>{
     try {
         //GENERATE RESET TOKEN
+        console.log("test");
+
         const resetToken = user.createPasswordResetToken();
         // SAVE USER
+        console.log("test passed",resetToken);
+
         await user.save({validateBeforeSave:false});
-        const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
-        const message = `Verify Your Account go to this link to verify your account ${verifyUrl}`;
+        const resetURL = `${req.protocol}://${req.get('host')}/api/users/resetPassword/${resetToken}`;
+        const message = `Verify Your Account go to this link to verify your account ${resetURL}`;
+        console.log(message);
         await sendEmail({
             email:user.email,
-            subject:"Verify Your Account",
+            subject:"Reset Your password",
             message
         })
         res.status(200).json(success("Reset Token sent to Email"))
@@ -91,13 +96,8 @@ export const signup = async(req,res,next) => {
             password
         })
         if(!newUser) throw new Error('Couldn\'t create user');
-            CreateAndSendEmailVerification(newUser,res);
-         res.status(200).json({
-            email,
-            subject:"email verification",
-            message:""
+           return  CreateAndSendEmailVerification(newUser,req,res);
 
-         })
     } catch (error) {
         res.status(500).json(fail(error.message));
     }
@@ -135,7 +135,7 @@ export const login = async(req, res, next) => {
         const user = await User.findOne({email}).select('+password')
         // CHECK IF ACCOUNT IS VERIFIED
         if(!user.verified){
-            return CreateAndSendEmailVerification(user,res);
+            return CreateAndSendEmailVerification(user,req,res);
         }
 
         if(!user || ! (await user.correctPassword(password,user.password))) {
@@ -160,6 +160,7 @@ export const logout = async(req, res, next) => {
 
 export const protect = async (req, res,next) => {
     try {
+        let token;
         // CHECK IF TOKEN IS IN REQUEST
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
             token = req.headers.authorization.split(' ')[1];
@@ -187,7 +188,7 @@ export const protect = async (req, res,next) => {
          */
         if(!currentUser.verified)
         {
-            return CreateAndSendEmailVerification(currentUser,res)
+            return CreateAndSendEmailVerification(currentUser,req,res)
         }
         /**
          * IF USER CHANGED PASSWORD AFTER ISSUING JWT TOKEN
@@ -212,7 +213,7 @@ export const forgotPassword = async (req, res, next) =>{
     try {
         const user = await User.findOne({email:req.body.email});
         if(!user) throw new Error("There is no user with email " + req.body.email);
-        return createAndSendPasswordReset(user,res);
+        return createAndSendPasswordReset(user,req,res);
 
     } catch (error) {
         return res.status(500).json(fail(error.message))        

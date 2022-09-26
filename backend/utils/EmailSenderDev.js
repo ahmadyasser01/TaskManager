@@ -3,17 +3,18 @@ import nodemailer from 'nodemailer';
 
 export const sendEmail = async (options) =>{
     // CREATE TRANSPORTER
-    const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
-        auth: {
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD
-        }
-      });
+    var transport = nodemailer.createTransport({
+      host: "smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: "b83eda8e3e349d",
+        pass: "c0c537fc2d93fa"
+      }
+    });
+    console.log(options);
     //Define the email options
     const mailOptions = {
-        from: 'Ahmad Yasser <AHMAD@AHMADYASSER.COM>',
+        from: 'Jonas Schmedtmann <hello@jonas.io>',
         to: options.email,
         subject: options.subject,
         text: options.message
@@ -21,7 +22,10 @@ export const sendEmail = async (options) =>{
     };
 
     // 3) Actually send the email
-    await transporter.sendMail(mailOptions);
-    
-
+    transport.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);
+});    console.log("email sent");
 }
