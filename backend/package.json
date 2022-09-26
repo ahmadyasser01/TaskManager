@@ -1,10 +1,11 @@
 {
   "name": "taskmanager",
   "version": "1.0.0",
+  "type": "module",
   "description": "simple way to manage your tasks and todolist",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "ay",
   "license": "ISC",
