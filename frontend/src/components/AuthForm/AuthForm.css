@@ -1,0 +1,18 @@
+.parent {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+
+}
+.form-container{
+    background-color:  white;
+    width: 428px;
+    height: 120vh;
+    margin: 20vh 0;
+    padding: 1rem;
+    border-radius: 10px;
+    
+}

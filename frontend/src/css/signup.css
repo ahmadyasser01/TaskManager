@@ -1,0 +1,25 @@
+.signup-container ,.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.signup-form, .login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+}
+.ss{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+svg{
+    width: 540px;
+    height: 150px;
+
+}

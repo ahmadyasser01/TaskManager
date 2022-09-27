@@ -14,16 +14,16 @@ export const sendEmail = async(options)=>
           html: `<strong>${options.message} </strong>`,
         }
 
-
-        sgMail
-        .send(msg)
-        .then(() => {}, error => {
-          console.error(error);
+        console.log(options.message);
+        // sgMail
+        // .send(msg)
+        // .then(() => {}, error => {
+        //   console.error(error);
       
-          if (error.response) {
-            console.error(error.response.body)
-          }
-        });
+        //   if (error.response) {
+        //     console.error(error.response.body)
+        //   }
+        // });
   }
 
 
