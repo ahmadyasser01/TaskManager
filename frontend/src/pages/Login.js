@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AuthForm from '../components/AuthForm/AuthForm'
 import '../css/signup.css'
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, Typography } from '@mui/material'
 
 
 
@@ -39,7 +39,18 @@ const Login = () => {
                />
             <Button variant='outlined'>
               Login
-            </Button>    
+            </Button>
+            <div className='login-options'>
+              <Button size="small">
+                Forget Password?
+              </Button>
+              <div>
+                <span>Don't have an account</span>
+                <Button size="small">
+                  Signup
+                </Button>
+              </div>
+            </div>    
           </form>
         </div>
       </AuthForm>

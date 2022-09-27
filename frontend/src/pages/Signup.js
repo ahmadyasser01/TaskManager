@@ -16,7 +16,7 @@ const Signup = () => {
     <>
       <AuthForm>
         <div className='signup-container'>
-          <div className='ss'>
+          <div className='illustration-login'>
             <Illustration/>
           </div>
           <h3>Sign up</h3>
@@ -61,7 +61,13 @@ const Signup = () => {
                />      
             <Button variant='outlined'>
               Sign up
-            </Button>    
+            </Button> 
+            <div className='login-options'>
+              <span>Don't have an account</span>
+              <Button size="small">
+                Signup
+              </Button>
+            </div>   
 
           </form>
         </div>
