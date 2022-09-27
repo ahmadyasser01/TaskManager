@@ -4,6 +4,7 @@ import '../css/signup.css'
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
+import API from '../utils/API';
 
 
 const Signup = () => {
@@ -11,6 +12,23 @@ const Signup = () => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [confirmpassword,setConfirmPassword] = useState("")
+
+  const HandleSubmit = async (e)=>{
+    e.preventDefault();
+    /**
+     * TODO: DO FORM VALIDATION IN THE FRONT-END
+     */
+    if(password !== confirmpassword){
+      console.log("password and confirmpassword are not the same");
+    }else{
+      const res = await API.signup({username,email,password});
+      console.log("from signup component res is  ", res);
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    }
+  }
 
   return (
     <>
@@ -20,7 +38,7 @@ const Signup = () => {
             <Illustration/>
           </div>
           <h3>Sign up</h3>
-          <form className='signup-form'>
+          <form className='signup-form' onSubmit={(e)=>HandleSubmit(e)}>
             <TextField
               onChange={e => setUsername(e.target.value)}
               value={username}
@@ -59,12 +77,12 @@ const Signup = () => {
               autoComplete='false'
               sx={{padding:"2px"}}
                />      
-            <Button variant='outlined'>
+            <Button variant='outlined' type="submit">
               Sign up
             </Button> 
             <div className='login-options'>
               <span>Don't have an account</span>
-              <Button size="small">
+              <Button size="small" >
                 Signup
               </Button>
             </div>   

@@ -133,6 +133,7 @@ export const login = async(req, res, next) => {
         }
         // FIND USER BY EMAIL
         const user = await User.findOne({email}).select('+password')
+        if(!user) throw new Error("No such user")
         // CHECK IF ACCOUNT IS VERIFIED
         if(!user.verified){
             return CreateAndSendEmailVerification(user,req,res);
