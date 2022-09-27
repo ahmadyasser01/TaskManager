@@ -3,9 +3,26 @@ import React, { useState } from 'react'
 import '../css/signup.css'
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
 import AuthForm from '../components/AuthForm/AuthForm'
+import API from '../utils/API'
 
 const ForgetPassword = () => {
   const [email,setEmail] = useState("")
+  const HandleSubmit = async (e)=>{
+    e.preventDefault();
+    const res = await API.forgotPassword(email);
+    if (res.status === "Success" ){
+      /**
+       * TODO: Handle message
+       * 
+       */
+    }
+    else{
+      /**
+       * TODO: Handle failure of the request
+       */
+    }
+
+  }
 
   return (
     <>
@@ -15,7 +32,7 @@ const ForgetPassword = () => {
               <Illustration/>
           </div>
           <h3>Forget Password?</h3>
-          <form className='forget-form'>
+          <form className='forget-form' onSubmit={HandleSubmit}>
             <TextField
               onChange={e=>setEmail(e.target.value)}
               value={email}
@@ -25,7 +42,7 @@ const ForgetPassword = () => {
               autoComplete='false'
               sx={{padding:"2px"}}
             />
-            <Button variant='outlined'>
+            <Button variant='outlined' type="submit">
                 SEND Email
             </Button> 
           </form>

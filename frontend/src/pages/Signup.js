@@ -22,11 +22,17 @@ const Signup = () => {
       console.log("password and confirmpassword are not the same");
     }else{
       const res = await API.signup({username,email,password});
-      console.log("from signup component res is  ", res);
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      if(res.status === "Success")
+      {
+        console.log("from signup component res is  ", res);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        /**
+         * TODO: SHOW MESSAGE TO USER
+         */
+      }
     }
   }
 

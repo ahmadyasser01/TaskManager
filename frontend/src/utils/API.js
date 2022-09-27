@@ -36,9 +36,8 @@ class API {
            return error.response.data
         }
     }
-    static forgotPassword = async function(data){
+    static forgotPassword = async function(email){
         try {
-            const {email} = data;
             const res = await axios.post('http://localhost:5000/api/users/forgotPassword',{email});
             return res.data;
         } catch (error) {
