@@ -60,9 +60,9 @@ class API {
             return error.response.data;
         }
     }
-    static getUser = async function(token){
+    static getUser = async function(){
         try {
-            const res = await axios.get(`http://localhost:5000/api/users/${token}`);
+            const res = await axios.get(`http://localhost:5000/api/users/me`,options);
             return res.data;
         } catch (error) {
             return error.response.data;
@@ -72,15 +72,23 @@ class API {
     static createTask = async function (data){
         try {
             const {title,description,priority,status} = data;
-            const res = await axios.post(`https://localhost:5000/tasks`,{title,description,priority,status})
+            const res = await axios.post(`http://localhost:5000/tasks`,{title,description,priority,status})
             return res.data
             
         } catch (error) {
-            return error.response.data;
+            return error.response.message;
         }
 
     }
-    static getAllTasks = function (){
+    static getAllTasks = async function (){
+        try {
+            const res = await axios.get(`http://localhost:5000/api/tasks`,options);
+            return res.data;
+        } catch (error) {
+            return error.response.data;
+            
+        }
+
         
     }
     static updateTask = function (){

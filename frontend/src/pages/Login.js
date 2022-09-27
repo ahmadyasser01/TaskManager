@@ -19,6 +19,7 @@ const Login = () => {
 
   const HandleSubmit = async (e)=>
   {
+
     e.preventDefault();
     const res = await API.login({email,password});
     console.log(res)
@@ -35,7 +36,9 @@ const Login = () => {
     }
   }
   return (
-    <>
+    
+    <>  
+      {auth?navigate('/board'):
       <AuthForm>
         <div className='login-container'>
           <div className="illustration-login">
@@ -51,7 +54,7 @@ const Login = () => {
               placeholder='Email'
               autoComplete='false'
               sx={{padding:"2px"}}
-               />
+              />
             <TextField
               onChange={e=>setPassword(e.target.value)}
               value={password}
@@ -61,7 +64,7 @@ const Login = () => {
               placeholder='Password'
               autoComplete='false'
               sx={{padding:"2px"}}
-               />
+              />
             <Button variant='outlined' type="submit">
               Login
             </Button>
@@ -79,7 +82,11 @@ const Login = () => {
           </form>
         </div>
       </AuthForm>
+      }
     </>
+
+    
+      
   )
 }
 
