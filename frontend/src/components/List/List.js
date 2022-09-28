@@ -8,7 +8,7 @@ import { Droppable } from 'react-beautiful-dnd'
 const List = ({tasks,list}) => {
   return (
     <div className=''>
-        <h3>Title</h3>
+              <h3>{list.title}</h3>        
         <Droppable droppableId={list.id}>
           {
             provided => (

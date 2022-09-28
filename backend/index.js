@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./db/connect.js";
 import userRouter from "./routes/user.js"
 import taskRouter from "./routes/task.js"
-
+import morgan from "morgan"
 // CONSTANTS
 dotenv.config();
 const PORT = process.env.PORT || 5001;
@@ -22,6 +22,7 @@ const corsOptions ={
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use(morgan('tiny'))
 
 //ROUTES
 app.use('/api/users',userRouter);

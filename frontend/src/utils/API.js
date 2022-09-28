@@ -86,12 +86,20 @@ class API {
             return res.data;
         } catch (error) {
             return error.response.data;
-            
         }
 
         
     }
-    static updateTask = function (){
+    static updateTask = async function (taskId,updateObj){
+        try {
+            const res = await axios.patch(`http://localhost:5000/api/tasks/${taskId}`,updateObj,options);
+            return res.data;
+        } catch (error) {
+           return error.response.data;
+            
+        }
+
+
         
     }
     static deleteTask = function (){

@@ -32,7 +32,7 @@ const Board = () => {
     const {destination , source, draggableId} = result;
     if(!destination) return;
     console.log('====================================');
-    console.log(result);
+    console.log();
     console.log('====================================');
     if(destination.droppableId === source.droppableId && destination.index === source.index) return;
     const start = data.lists[source.droppableId]
@@ -78,7 +78,8 @@ const Board = () => {
           }
         }
       })
-
+    const id = data.tasks[draggableId]._id;
+    API.updateTask(id,{status:destination.droppableId})
     }
 
 
@@ -117,10 +118,3 @@ const Board = () => {
 }
 
 export default Board
-
-// {listOrder.map(id =>{
-//   const list = data['lists'][id];
-//   const tasks = list.tasks.map(taskId => data.tasks[taskId]);
-//   console.log(tasks,"from tasks map in lists map")
-// return (<div>{list.title}</div>) }
-// )}
