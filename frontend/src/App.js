@@ -21,8 +21,8 @@ function App() {
     const res = await API.getUser();
     if(res.status === 'Success')
     {
-      login(res);
-      setIsLoading(false);
+      if(res.data.verified)
+        login(res.data);
     }
     setIsLoading(false);
   }
