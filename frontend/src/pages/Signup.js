@@ -1,17 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import  { useContext } from 'react'
 import AuthForm from '../components/AuthForm/AuthForm'
 import '../css/signup.css'
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
 import API from '../utils/API';
+import { AuthContext } from '../context/Auth'
+import { useNavigate } from "react-router-dom";
+
 
 
 const Signup = () => {
-  const [username,setUsername] = useState("")
-  const [email,setEmail] = useState("")
-  const [password,setPassword] = useState("")
-  const [confirmpassword,setConfirmPassword] = useState("")
+  const [username,setUsername] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [confirmpassword,setConfirmPassword] = useState("");
+  let navigate = useNavigate();
+  const { user,login,logout ,auth} = useContext(AuthContext);
+
+  useEffect(()=>{
+    console.log(auth);
+    if(auth) navigate('/board');
+  },[])
+
+
+
 
   const HandleSubmit = async (e)=>{
     e.preventDefault();

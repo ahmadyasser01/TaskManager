@@ -1,7 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
+import { Navigate } from 'react-router-dom';
 import API from '../utils/API';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../context/Auth'
+
+
 
 const Board = () => {
+  let navigate = useNavigate();
+  const { user,login,logout ,auth} = useContext(AuthContext);
+
   const getAllTasks = async ()=>{
     const res = await API.getAllTasks();
     console.log('====================================');
@@ -10,11 +18,14 @@ const Board = () => {
   }
   useEffect(()=>{
      getAllTasks();
+     if(!auth) navigate('/login')
+     if(!user.verified) navigate('/login')
   },[])
   return (
-    <div>
-      board
-    </div>
+    <>
+      {auth&&"board"}
+    </>
+
   )
 }
 

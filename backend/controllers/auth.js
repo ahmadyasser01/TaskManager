@@ -40,7 +40,8 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
     const verifyToken = user.createVerifyToken();
     await user.save({ validateBeforeSave: false });
     // SEND TOKEN TO USER
-    const verifyUrl = `${req.protocol}://${req.get('host')}/api/v1/users/verify/${verifyToken}`;
+    // const verifyUrl = `${req.protocol}://${req.get('host')}/api/users/verify/${verifyToken}`;
+    const verifyUrl = `http://localhost:3000/verify/${verifyToken}`;
     const message = `Verify Your Account go to this link to verify your account ${verifyUrl}`;
     try {
         await sendEmail({

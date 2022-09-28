@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import  { useContext } from 'react'
 import AuthForm from '../components/AuthForm/AuthForm'
 import '../css/signup.css'
@@ -35,10 +35,14 @@ const Login = () => {
        */
     }
   }
+  useEffect(()=>{
+    console.log(auth);
+    if(auth) navigate('/board');
+  },[])
+
   return (
     
     <>  
-      {auth?navigate('/board'):
       <AuthForm>
         <div className='login-container'>
           <div className="illustration-login">
@@ -82,7 +86,6 @@ const Login = () => {
           </form>
         </div>
       </AuthForm>
-      }
     </>
 
     

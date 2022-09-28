@@ -6,22 +6,25 @@ import Signup from './pages/Signup'
 import ForgetPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
 import Board from './pages/Board'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthContext } from './context/Auth'
 import  { useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 
 import API from './utils/API';
+import { LinearProgress } from '@mui/material';
 function App() {
   const { user,login,logout ,auth} = useContext(AuthContext);
+  const [isLoading,setIsLoading] = useState(true);
 
   const getUser = async ()=>{
     const res = await API.getUser();
     if(res.status === 'Success')
     {
       login(res);
+      setIsLoading(false);
     }
-    console.log(res);
+    setIsLoading(false);
   }
   useEffect(()=>{
     console.log('====================================');
@@ -32,15 +35,18 @@ function App() {
   },[])
   return (
     <div>
-      {console.log(user)}
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/forgetPassword' element={<ForgetPassword/>}/>
-        <Route path='/resetPassword' element={<ResetPassword/>}/>
-        <Route path='/board' element={<Board/>}/>
-      </Routes>
+      {
+        isLoading?<LinearProgress color="secondary" />:
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/forgetPassword' element={<ForgetPassword/>}/>
+          <Route path='/resetPassword' element={<ResetPassword/>}/>
+          <Route path='/board' element={<Board/>}/>
+        </Routes>
+      }
+     
     </div>
   );
 }
