@@ -6,13 +6,15 @@ export const   PopupProvider = ({ children }) => {
     const [update, setUpdate] = useState(true);
     const [open, setOpen] = useState(false);
     const [selected,setSelected] = useState('')
+    const [taskId,setTaskId] = useState('')
+
 
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
   
     return (
-      <PopupContext.Provider value={{ open, handleOpen, handleClose,update,setUpdate,selected,setSelected }}>
+      <PopupContext.Provider value={{ open, handleOpen, handleClose,update,setUpdate,selected,setSelected,taskId,setTaskId }}>
         {children}
       </PopupContext.Provider>
     );

@@ -20,14 +20,14 @@ const AddTask = ({selected}) => {
       // if request was successful add task to the data context to add new card
       const newTask  = res.data;
       const newTasks = Array.from(data.lists[selected].tasks)
-      newTasks.push(newTask.title);
+      newTasks.push(newTask._id);
       const newList = {
         ...data.lists[selected],
         tasks:newTasks
       }
       const newTasksObj = {
         ...data.tasks,
-        [newTask.title]: newTask
+        [newTask._id]: newTask
       }
      setData(prev=>{
       return {

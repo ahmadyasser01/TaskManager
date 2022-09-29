@@ -4,13 +4,13 @@ import { PopupContext } from '../../context/Popup';
 import "../../css/board.css" 
 import Popup from '../Popup/Popup';
 
-const Card = ({task,index}) => {
-  const {open, handleOpen, handleClose,update,setUpdate} = useContext(PopupContext)
+const Card = ({task,index,list}) => {
+  const {open, handleOpen,setUpdate,setTaskId,setSelected} = useContext(PopupContext)
 
 
   return (
     <>
-      <Draggable draggableId={task.title} index={index}>
+      <Draggable draggableId={task._id} index={index}>
       {
         (provided,snapshot)=> (
           <div
@@ -20,12 +20,16 @@ const Card = ({task,index}) => {
             className='card-container'
             onClick={()=> {
               setUpdate(true)
-              handleOpen();}}
+              handleOpen();
+              setTaskId(task._id)
+              setSelected(list)
+            }
+              }
           >
             
           <div className='priority' >{task.priority}</div>
           <h4>{task.title}</h4>
-          <p>lorem ipsum</p>
+          <p>{task.description}</p>
           </div>
         )
       }

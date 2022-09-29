@@ -40,8 +40,12 @@
     padding:2px 8px;
     border-radius: 2px;
 }
-.add-task-popup form{
+.add-task-popup form , .update-task-popup form{
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+.card-options{
+    display: flex;
+    justify-content: space-between;
 }

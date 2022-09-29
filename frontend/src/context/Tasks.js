@@ -22,7 +22,7 @@ export const   TaskProvider = ({ children }) => {
       setTasks(userTasks)
         const obj = {};
         for( const element of userTasks){
-            obj[element.title] = element
+            obj[element._id] = element
         }
         setData(prev => {return {
           ...prev,
@@ -36,7 +36,7 @@ export const   TaskProvider = ({ children }) => {
         let copiedLists = JSON.parse(JSON.stringify(lists));
         userdata.forEach(element =>
           {
-            copiedLists[element.status].tasks.push(element['title']);
+            copiedLists[element.status].tasks.push(element['_id']);
           })
         setLists(copiedLists);
         const newLists = Object.keys(copiedLists)

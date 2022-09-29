@@ -18,7 +18,7 @@ const style = {
     boxShadow: 24,
     p: 4,
   };
-const Popup = ({open,handleClose,update,selected}) => {
+const Popup = ({open,handleClose,update,selected,taskId}) => {
   return (
     <div>
       <Modal
@@ -28,7 +28,7 @@ const Popup = ({open,handleClose,update,selected}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {update ? <UpdateTask/>:<AddTask selected={selected}/>}
+          {update ? <UpdateTask selected={selected} taskId={taskId}/>:<AddTask selected={selected}/>}
         </Box>
       </Modal>
     </div>

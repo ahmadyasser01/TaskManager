@@ -8,12 +8,16 @@ import Navbar from '../components/Nav/Navbar';
 import List from '../components/List/List';
 import "../css/board.css" 
 import {DragDropContext} from 'react-beautiful-dnd'
+import { PopupContext } from '../context/Popup'
+import Popup from '../components/Popup/Popup';
+
 
 
 
 const Board = () => {
   let navigate = useNavigate();
   const { user,login,logout ,auth} = useContext(AuthContext);
+  const {open, handleOpen, handleClose,update,setUpdate,setSelected,selected,taskId} = useContext(PopupContext)
   const {tasks, lists, HandleData,HandleTasks,HandleLists,data,setData,listOrder} = useContext(TaskContext);
 
   const getAllTasks = async ()=>{
@@ -30,10 +34,8 @@ const Board = () => {
   const onDragEnd = result =>
   {
     const {destination , source, draggableId} = result;
+    console.log(result)
     if(!destination) return;
-    console.log('====================================');
-    console.log();
-    console.log('====================================');
     if(destination.droppableId === source.droppableId && destination.index === source.index) return;
     const start = data.lists[source.droppableId]
     const end = data.lists[destination.droppableId]
@@ -82,7 +84,6 @@ const Board = () => {
     API.updateTask(id,{status:destination.droppableId})
     }
 
-
   }
 
 
@@ -95,7 +96,7 @@ const Board = () => {
   <div className='board'>
     <Navbar/>
       <div className='board-container'>
-        {tasks.length >0 && listOrder.map(id =>
+        { listOrder.map(id =>
         {
           const list = data['lists'][id];
           const tasks = list.tasks.map(taskId => data.tasks[taskId]);
@@ -104,6 +105,8 @@ const Board = () => {
           
         )}
       </div>
+      <Popup open={open} handleClose={handleClose} update={update} selected={selected}  taskId={taskId} />
+
 
   </div>
 </DragDropContext>
