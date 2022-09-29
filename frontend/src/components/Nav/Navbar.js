@@ -22,7 +22,7 @@ const Navbar = () => {
   }
   return (
     <div className='navbar'>
-      <h1>Task Manager</h1>
+      <h1> Blue Task Manager</h1>
       <Button onClick={HandleLogout}>Logout</Button>
     </div>
   )

@@ -4,7 +4,7 @@
 }
 .board-container {
     padding:1.5rem 3rem;
-    background-color: #3179BA;
+    background-color: #28293E;;
     min-height: 95vh;
     display:flex;
     flex-direction: row;
@@ -33,7 +33,7 @@
 
 }
 .priority {
-    background-color: #F27F77;
+    background-color: #FF3366;
     width: 70px;
     height: 20px;
     text-align: center;
