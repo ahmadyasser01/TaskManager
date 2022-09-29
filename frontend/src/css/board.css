@@ -33,13 +33,27 @@
 
 }
 .priority {
-    background-color: #FF3366;
-    width: 70px;
     height: 20px;
     text-align: center;
     padding:2px 8px;
     border-radius: 2px;
 }
+.high-priority {
+    background-color: #FF3366;
+    color: #622808;
+}
+.medium-priority {
+    background-color: #F5EB88;
+    color:#653408;
+}
+.low-priority {
+    background-color: #46F7B7;
+    color:#096343;
+
+
+
+}
+
 .add-task-popup form , .update-task-popup form{
     display: flex;
     flex-direction: column;

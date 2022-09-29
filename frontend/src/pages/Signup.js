@@ -19,7 +19,7 @@ const Signup = () => {
   const [alert,setAlert] = useState(0); // zero means no alert 1 means success 2 means error
   const [msg,setMsg] = useState("")
   let navigate = useNavigate();
-  const { user,login,logout ,auth} = useContext(AuthContext);
+  const { usr,login,logout ,auth} = useContext(AuthContext);
 
   useEffect(()=>{
     console.log(auth);

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AuthForm from '../components/AuthForm/AuthForm'
 import '../css/signup.css'
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
 import { useNavigate } from "react-router-dom";
 import API from '../utils/API';
@@ -25,20 +25,23 @@ const ResetPassword = () => {
       console.log("password and confirmpassword are not the same");
       setAlert(2)
       setMsg("password and confirmpassword are not the same")
-      /**
-       * TODO: Handle error message
-       * 
-       */
+
     }
     const res = await API.resetPassword(password,token);
     console.log(res);
     if (res.status === "Success" ){
-      navigate('/login')
+      setAlert(2)
+      setMsg("password Changed Successfully\n going to login again")
+      setTimeout(()=>{
+        navigate('/login')
+
+      },3000)
+
+
     }
     else{
-      /**
-       * TODO: Handle failure of the request
-       */
+      setAlert(2)
+      setMsg(res.message)
     }
 
   }
@@ -50,6 +53,11 @@ const ResetPassword = () => {
               <Illustration/>
           </div>
           <h3>Forget Password?</h3>
+          {
+            alert!==0&&<Alert severity={alert===1 ? "success":"error"} color={alert===1 ? "success":"error"}>
+            {msg}
+          </Alert>
+          }
           <form className='reset-form' onSubmit={HandleSubmit}>
             <TextField
               onChange={e=>setPassword(e.target.value)}
