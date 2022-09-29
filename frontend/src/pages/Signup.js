@@ -16,6 +16,8 @@ const Signup = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [confirmpassword,setConfirmPassword] = useState("");
+  const [alert,setAlert] = useState(0); // zero means no alert 1 means success 2 means error
+  const [msg,setMsg] = useState("")
   let navigate = useNavigate();
   const { user,login,logout ,auth} = useContext(AuthContext);
 
@@ -43,6 +45,8 @@ const Signup = () => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
+        setAlert(1)
+        setMsg("Signup successful, An email will be sent to verify your account")
         /**
          * TODO: SHOW MESSAGE TO USER
          */
@@ -58,9 +62,11 @@ const Signup = () => {
           <div className='illustration-login'>
             <Illustration/>
           </div>
-          <Alert severity="success" color="info">
-            This is a success alert — check it out!
+          {
+            alert!==0&&<Alert severity="success" color="info">
+            {msg}
           </Alert>
+          }
           <h3>Sign up</h3>
           <form className='signup-form' onSubmit={(e)=>HandleSubmit(e)}>
             <TextField
@@ -106,7 +112,7 @@ const Signup = () => {
             </Button> 
             <div className='login-options'>
               <span>Have an account</span>
-              <Button size="small" >
+              <Button size="small"  onClick={()=>navigate('/login')}>
                 Login
               </Button>
             </div>   

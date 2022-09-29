@@ -10,6 +10,7 @@ import "../css/board.css"
 import {DragDropContext} from 'react-beautiful-dnd'
 import { PopupContext } from '../context/Popup'
 import Popup from '../components/Popup/Popup';
+import { Alert } from '@mui/material';
 
 
 
@@ -28,7 +29,11 @@ const Board = () => {
   useEffect(()=>{
     getAllTasks();
     if(!auth) navigate('/login')
-    if(!user.verified) navigate('/login')
+    if(!user.verified) {
+      setTimeout(()=>{
+        navigate('/login')
+      },3000)
+    }
   },[])
 
   const onDragEnd = result =>
@@ -91,7 +96,7 @@ const Board = () => {
   return (
     <>
 
-      {auth&&
+      {auth&&user.verified?
   <DragDropContext onDragEnd={onDragEnd}>
   <div className='board'>
     <Navbar/>
@@ -109,7 +114,9 @@ const Board = () => {
 
 
   </div>
-</DragDropContext>
+</DragDropContext>:<Alert severity="success" color="info">
+            "Please Verify Your email first"
+          </Alert>
 
 
 }

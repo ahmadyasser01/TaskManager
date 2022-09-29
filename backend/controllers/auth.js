@@ -67,8 +67,8 @@ const createAndSendPasswordReset = async (user,req,res)=>{
         console.log("test passed",resetToken);
 
         await user.save({validateBeforeSave:false});
-        const resetURL = `${req.protocol}://${req.get('host')}/api/users/resetPassword/${resetToken}`;
-        const message = `Verify Your Account go to this link to verify your account ${resetURL}`;
+        const resetURL = `http://localhost:3000/resetPassword/${resetToken}`;
+        const message = `Reset Your Password go to this link to verify your account ${resetURL}`;
         console.log(message);
         await sendEmail({
             email:user.email,

@@ -37,7 +37,7 @@ const Login = () => {
   }
   useEffect(()=>{
     console.log(auth);
-    if(auth) navigate('/board');
+    if(auth&&user.verified) navigate('/board');
   },[])
 
   return (
@@ -73,12 +73,12 @@ const Login = () => {
               Login
             </Button>
             <div className='login-options'>
-              <Button size="small">
-                Forget Password?
+              <Button size="small" onClick={()=>navigate('/forgetpassword')}>
+                Forgot Password?
               </Button>
               <div>
                 <span>Don't have an account</span>
-                <Button size="small">
+                <Button size="small" onClick={()=>navigate('/signup')}>
                   Signup
                 </Button>
               </div>

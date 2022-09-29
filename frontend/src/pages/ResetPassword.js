@@ -6,11 +6,15 @@ import { Button } from '@mui/material';
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
 import { useNavigate } from "react-router-dom";
 import API from '../utils/API';
+import { useParams } from 'react-router-dom';
+
 
 const ResetPassword = () => {
   let navigate = useNavigate();
   const [password,setPassword] = useState("");
   const [confirmpassword,setConfirmPassword] = useState("");
+  const {token} = useParams();
+
 
   const HandleSubmit = async (e)=>{
     e.preventDefault();
@@ -20,7 +24,8 @@ const ResetPassword = () => {
        * TODO: Handle error message
        */
     }
-    const res = await API.ResetPassword(password);
+    const res = await API.resetPassword(password,token);
+    console.log(res);
     if (res.status === "Success" ){
       navigate('/login')
     }
@@ -60,7 +65,7 @@ const ResetPassword = () => {
               autoComplete='false'
               sx={{padding:"2px"}}
             /> 
-            <Button variant='outlined'>
+            <Button variant='outlined' type="submit">
                 Change Password
             </Button> 
           </form>
