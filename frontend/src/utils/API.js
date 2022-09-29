@@ -46,7 +46,7 @@ class API {
     }
     static logout = async function(){
         try {
-            const res = await axios.post('http://localhost:5000/api/users/logout',{});
+            const res = await axios.post('http://localhost:5000/api/users/logout',{},options);
             return res.data
         } catch (error) {
             return error.response.data;
