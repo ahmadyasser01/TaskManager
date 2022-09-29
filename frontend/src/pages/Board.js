@@ -21,6 +21,9 @@ const Board = () => {
   const {open, handleOpen, handleClose,update,setUpdate,setSelected,selected,taskId} = useContext(PopupContext)
   const {tasks, lists, HandleData,HandleTasks,HandleLists,data,setData,listOrder} = useContext(TaskContext);
 
+  useEffect(()=>{
+  },[])
+
   const getAllTasks = async ()=>{
     const res = await API.getAllTasks();
     HandleTasks(res.data);
@@ -33,6 +36,10 @@ const Board = () => {
       setTimeout(()=>{
         navigate('/login')
       },3000)
+    }
+    return ()=>{
+    HandleTasks([])
+    HandleLists([])
     }
   },[])
 
@@ -102,7 +109,7 @@ const Board = () => {
     <Navbar/>
       <div className='board-container'>
         { listOrder.map(id =>
-        {
+        { if(data['lists'] ===undefined) return;
           const list = data['lists'][id];
           const tasks = list.tasks.map(taskId => data.tasks[taskId]);
           return  <List key={list.id} tasks={tasks} list={list}/> 

@@ -19,6 +19,12 @@ export const   TaskProvider = ({ children }) => {
     const [data,setData] = useState({});
   
     const HandleTasks = (userTasks) => {
+      if(userTasks.length===0 )
+      {
+        setTasks([])
+        setData([])
+        return;
+      } 
       setTasks(userTasks)
         const obj = {};
         for( const element of userTasks){

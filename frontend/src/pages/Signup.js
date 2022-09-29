@@ -36,6 +36,8 @@ const Signup = () => {
      */
     if(password !== confirmpassword){
       console.log("password and confirmpassword are not the same");
+      setAlert(2)
+      setMsg("password and confirmpassword are not the same")
     }else{
       const res = await API.signup({username,email,password});
       if(res.status === "Success")
@@ -47,10 +49,10 @@ const Signup = () => {
         setConfirmPassword('');
         setAlert(1)
         setMsg("Signup successful, An email will be sent to verify your account")
-        /**
-         * TODO: SHOW MESSAGE TO USER
-         */
-        //**navigate to login */
+        setTimeout(()=>{
+          setAlert(0)
+          navigate('/login')
+        },3000)
       }
     }
   }
@@ -63,7 +65,7 @@ const Signup = () => {
             <Illustration/>
           </div>
           {
-            alert!==0&&<Alert severity="success" color="info">
+            alert!==0&&<Alert severity={alert===1 ? "success":"error"} color={alert===1 ? "success":"error"}>
             {msg}
           </Alert>
           }

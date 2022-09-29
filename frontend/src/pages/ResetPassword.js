@@ -14,14 +14,20 @@ const ResetPassword = () => {
   const [password,setPassword] = useState("");
   const [confirmpassword,setConfirmPassword] = useState("");
   const {token} = useParams();
+  const [alert,setAlert] = useState(0); // zero means no alert 1 means success 2 means error
+  const [msg,setMsg] = useState("")
 
 
   const HandleSubmit = async (e)=>{
     e.preventDefault();
     if(password !== confirmpassword) 
     {
+      console.log("password and confirmpassword are not the same");
+      setAlert(2)
+      setMsg("password and confirmpassword are not the same")
       /**
        * TODO: Handle error message
+       * 
        */
     }
     const res = await API.resetPassword(password,token);
