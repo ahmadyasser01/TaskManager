@@ -1,0 +1,43 @@
+.home {
+    color: white;
+    height: calc(100vh);
+    background-color: #28293E;
+    padding: 50px 50px 50px;
+
+}
+.home-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+.home-logo-container{
+    display: flex;
+
+
+}
+.main-right img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.home-main{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+.home-main section{
+    width: 50%;
+}
+.hero-text {
+    font-size: 50px;
+}
+
+.main-left {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    height: 100%;
+    gap:1.5rem
+}
