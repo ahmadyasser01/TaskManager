@@ -103,10 +103,24 @@ class API {
 
         
     }
-    static deleteTask = function (){
-        
+    static deleteTask = async function (id){
+        try {
+            const res = await axios.delete(`http://localhost:5000/api/tasks/${id}`,options);
+            return res.data;
+        } catch (error) {
+           return error.response.data;
+             
     }
-    static getTask = function (){
+}
+    static getTask = async function (id){
+        try {
+            const res = await axios.get(`http://localhost:5000/api/tasks/${id}`,options);
+            return res.data;
+        } catch (error) {
+           return error.response.data;
+            
+        }
+        
         
     }
 }
