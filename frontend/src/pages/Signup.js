@@ -3,7 +3,7 @@ import  { useContext } from 'react'
 import AuthForm from '../components/AuthForm/AuthForm'
 import '../css/signup.css'
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
 import API from '../utils/API';
 import { AuthContext } from '../context/Auth'
@@ -46,6 +46,7 @@ const Signup = () => {
         /**
          * TODO: SHOW MESSAGE TO USER
          */
+        //**navigate to login */
       }
     }
   }
@@ -57,6 +58,9 @@ const Signup = () => {
           <div className='illustration-login'>
             <Illustration/>
           </div>
+          <Alert severity="success" color="info">
+            This is a success alert — check it out!
+          </Alert>
           <h3>Sign up</h3>
           <form className='signup-form' onSubmit={(e)=>HandleSubmit(e)}>
             <TextField
@@ -101,9 +105,9 @@ const Signup = () => {
               Sign up
             </Button> 
             <div className='login-options'>
-              <span>Don't have an account</span>
+              <span>Have an account</span>
               <Button size="small" >
-                Signup
+                Login
               </Button>
             </div>   
 

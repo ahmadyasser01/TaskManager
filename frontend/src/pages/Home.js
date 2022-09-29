@@ -4,9 +4,12 @@ import '../css/home.css'
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import hero from '../assets/hero.png'
 import { Button } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   // const { user,login,logout ,auth} = useContext(AuthContext);
+  let navigate = useNavigate();
+
   return (
     <div className='home'>
       <div className='home-container'>
@@ -22,7 +25,10 @@ const Home = () => {
             <p>
               fast and simply way to manage your Personal tasks
             </p>
-            <Button sx={{backgroundColor:"#FF3366", color:"#FFF"}}>Sign up</Button>
+            <Button 
+            sx={{backgroundColor:"#FF3366", color:"#FFF"}}
+            onClick={()=> navigate('/signup')}
+            >Sign up</Button>
           </section>
           <section className='main-right'>
             <img 

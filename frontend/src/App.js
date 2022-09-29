@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 import API from './utils/API';
 import { LinearProgress } from '@mui/material';
+import Verify from './pages/Verify';
 function App() {
   const { user,login,logout ,auth} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState(true);
@@ -27,9 +28,6 @@ function App() {
     setIsLoading(false);
   }
   useEffect(()=>{
-    console.log('====================================');
-    console.log("test");
-    console.log('====================================');
     getUser();
 
   },[])
@@ -44,6 +42,9 @@ function App() {
           <Route path='/forgetPassword' element={<ForgetPassword/>}/>
           <Route path='/resetPassword' element={<ResetPassword/>}/>
           <Route path='/board' element={<Board/>}/>
+          <Route path='/verify/:token' element={<Verify/>}/>
+
+
         </Routes>
       }
      

@@ -30,7 +30,7 @@ class API {
     }
     static verifyAccount = async function(token){
         try {
-            const res = await axios.get(`http://localhost:5000/api/verify/${token}`)
+            const res = await axios.get(`http://localhost:5000/api/users/verify/${token}`)
             return res.data;
         } catch (error) {
            return error.response.data
