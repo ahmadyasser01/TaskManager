@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './navbar.css'
 import {Button} from '@mui/material'
 import API from '../../utils/API'
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../context/Auth';
 
 const Navbar = () => {
+  const { user,login,logout ,auth} = useContext(AuthContext);
+
   let navigate = useNavigate();
   const HandleLogout = async ()=>{
     const {status} =await API.logout();
-    console.log('====================================');
-    console.log();
-    console.log('====================================');
+
     if(status === 'Success'){
+      logout();
       navigate('/')
     }
   }
