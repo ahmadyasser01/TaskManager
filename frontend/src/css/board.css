@@ -1,12 +1,11 @@
 .board {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 .board-container {
     padding:1.5rem 3rem;
     background-color: #3179BA;
-    max-height: 95vh;
+    min-height: 95vh;
     display:flex;
     flex-direction: row;
     gap: 1rem;
@@ -17,15 +16,15 @@
     padding:1rem 1rem 1.5rem 1rem;
     background-color: #DDDFE7;
     min-width:250px;
-    max-height:fit-content;
+    height: fit-content;
+}
+.cards-container {
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     border-radius: 4px;
-    overflow: auto;
-
 }
-
 .card-container{
     background-color: white;
     width: 200px;
@@ -40,4 +39,9 @@
     text-align: center;
     padding:2px 8px;
     border-radius: 2px;
+}
+.add-task-popup form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }

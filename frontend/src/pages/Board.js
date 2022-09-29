@@ -95,7 +95,7 @@ const Board = () => {
   <div className='board'>
     <Navbar/>
       <div className='board-container'>
-        {listOrder.map(id =>
+        {tasks.length >0 && listOrder.map(id =>
         {
           const list = data['lists'][id];
           const tasks = list.tasks.map(taskId => data.tasks[taskId]);

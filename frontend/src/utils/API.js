@@ -71,12 +71,13 @@ class API {
     }
     static createTask = async function (data){
         try {
+            console.log("req");
             const {title,description,priority,status} = data;
-            const res = await axios.post(`http://localhost:5000/tasks`,{title,description,priority,status})
+            const res = await axios.post(`http://localhost:5000/api/tasks`,{title,description,priority,status},options)
             return res.data
             
         } catch (error) {
-            return error.response.message;
+            return error;
         }
 
     }

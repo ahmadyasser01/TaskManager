@@ -3,25 +3,18 @@ import { createContext,useState, } from "react";
 export const TaskContext = createContext(null);
 
 export const   TaskProvider = ({ children }) => {
-    // User is the name of the "data" that gets stored in context
+    const initLists = {
+      "Todo":{id:"Todo",title: "Todo",tasks:[]},
+      "In Progress":{id:"In Progress",title: "In Progress",tasks:[]},
+      "Under Review":{id:"Under Review",title: "Under Review",tasks:[]},
+      "Rework":{id:"Rework",title: "Rework",tasks:[]},
+      "Completed":{id:"Completed",title: "Completed",tasks:[]},
+      
+    }
+   
     const [tasks, setTasks] = useState([]);
-    // const [lists,setLists] = useState([
-    //     'Todo',
-    //     'In Progress',
-    //     'Under Review',
-    //     'Rework',
-    //     'Completed'
-    // ]);
-    const [lists,setLists] = useState(
-      {
-        "Todo":{id:"Todo",title: "Todo",tasks:[]},
-        "In Progress":{id:"In Progress",title: "In Progress",tasks:[]},
-        "Under Review":{id:"Under Review",title: "Under Review",tasks:[]},
-        "Rework":{id:"Rework",title: "Rework",tasks:[]},
-        "Completed":{id:"Completed",title: "Completed",tasks:[]},
-        
-      }
-      );
+
+    const [lists,setLists] = useState(initLists);
     const [listOrder, setListOrder] = useState([]) 
     const [data,setData] = useState({});
   
@@ -38,9 +31,6 @@ export const   TaskProvider = ({ children }) => {
     };
       
 
-    // const HandleTasks = (userTasks) => {
-    //     setTasks(userTasks);
-    // };
 
     const HandleLists = (userdata) =>{
         let copiedLists = JSON.parse(JSON.stringify(lists));
@@ -58,15 +48,11 @@ export const   TaskProvider = ({ children }) => {
           }
         })
     }
-    const HandleData = (userTasks)=>{
-        HandleTasks(userTasks);
-        // HandleLists();
-        
-    }
+
 
   
     return (
-      <TaskContext.Provider value={{ tasks, lists, setTasks,HandleTasks,HandleLists,data,setData,listOrder }}>
+      <TaskContext.Provider value={{ tasks,setTasks, lists, setTasks,HandleTasks,HandleLists,data,setData,listOrder }}>
         {children}
       </TaskContext.Provider>
     );

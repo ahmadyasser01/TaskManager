@@ -67,7 +67,7 @@ const Signup = () => {
               placeholder='Username'
               autoComplete='false'
               sx={{padding:"2px"}}
-               />
+            />
             <TextField
               onChange={e=>setEmail(e.target.value)}
               value={email}
@@ -76,7 +76,7 @@ const Signup = () => {
               placeholder='Email'
               autoComplete='false'
               sx={{padding:"2px"}}
-               />
+            />
             <TextField
               onChange={e=>setPassword(e.target.value)}
               value={password}
@@ -86,7 +86,7 @@ const Signup = () => {
               placeholder='Password'
               autoComplete='false'
               sx={{padding:"2px"}}
-               />
+            />
             <TextField
               onChange={e=>setConfirmPassword(e.target.value)}
               value={confirmpassword}
@@ -96,7 +96,7 @@ const Signup = () => {
               placeholder='Confirm Password'
               autoComplete='false'
               sx={{padding:"2px"}}
-               />      
+            />      
             <Button variant='outlined' type="submit">
               Sign up
             </Button> 

@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
+import { PopupContext } from '../../context/Popup';
 import "../../css/board.css" 
 import Popup from '../Popup/Popup';
 
 const Card = ({task,index}) => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const {open, handleOpen, handleClose,update,setUpdate} = useContext(PopupContext)
+
 
   return (
     <>
@@ -18,7 +18,9 @@ const Card = ({task,index}) => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             className='card-container'
-            onClick={()=> handleOpen()}
+            onClick={()=> {
+              setUpdate(true)
+              handleOpen();}}
           >
             
           <div className='priority' >{task.priority}</div>
@@ -28,7 +30,6 @@ const Card = ({task,index}) => {
         )
       }
       </Draggable>
-      <Popup open={open} handleClose={handleClose}/>
     </>
   )
 }

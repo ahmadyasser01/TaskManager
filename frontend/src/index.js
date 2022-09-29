@@ -5,9 +5,11 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import {UserProvider} from './context/Auth'
 import { TaskProvider } from './context/Tasks';
+import { PopupProvider } from './context/Popup';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <PopupProvider>
   <TaskProvider>
   <UserProvider>
     <BrowserRouter>
@@ -15,5 +17,6 @@ root.render(
     </BrowserRouter>
   </UserProvider>
   </TaskProvider>
+  </PopupProvider>
 );
 

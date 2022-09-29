@@ -8,7 +8,7 @@ import UpdateTask from '../Update Task/UpdateTask';
 
 
 const style = {
-    position: 'absolute',
+    position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -18,7 +18,7 @@ const style = {
     boxShadow: 24,
     p: 4,
   };
-const Popup = ({open,handleClose,update}) => {
+const Popup = ({open,handleClose,update,selected}) => {
   return (
     <div>
       <Modal
@@ -28,7 +28,7 @@ const Popup = ({open,handleClose,update}) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {update ? <UpdateTask/>:<AddTask/>}
+          {update ? <UpdateTask/>:<AddTask selected={selected}/>}
         </Box>
       </Modal>
     </div>
