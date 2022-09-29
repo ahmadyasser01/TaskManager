@@ -23,9 +23,7 @@ const UpdateTask = ({taskId,selected}) => {
     {
       let newTasks = Array.from(data.lists[selected].tasks);
       newTasks= newTasks.filter(task => task !== taskId);
-      console.log('====================================');
-      console.log(newTasks);
-      console.log('====================================');
+
       const newList ={
         ...data.lists[selected],
         tasks:newTasks
