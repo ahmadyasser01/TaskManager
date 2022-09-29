@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../context/Auth'
 import '../css/home.css'
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import hero from '../assets/hero.png'
+import hero from '../assets/Group.png'
 import { Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 

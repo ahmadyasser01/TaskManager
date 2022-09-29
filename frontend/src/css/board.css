@@ -4,7 +4,7 @@
 }
 .board-container {
     padding:1.5rem 3rem;
-    background-color: #28293E;;
+    background: linear-gradient(to right, #ff00cc, #333399);
     min-height: 95vh;
     display:flex;
     flex-direction: row;
@@ -17,6 +17,12 @@
     background-color: #DDDFE7;
     min-width:250px;
     height: fit-content;
+    color:#1d3052
+}
+.list-container h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1d3052;
 }
 .cards-container {
     min-height: 100px;
@@ -39,7 +45,8 @@
     border-radius: 2px;
 }
 .high-priority {
-    background-color: #FF3366;
+    background-color: #F27F77
+    ;
     color: #622808;
 }
 .medium-priority {

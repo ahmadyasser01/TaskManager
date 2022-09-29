@@ -3,7 +3,7 @@ import  { useContext } from 'react'
 import AuthForm from '../components/AuthForm/AuthForm'
 import '../css/signup.css'
 import   { ReactComponent as Illustration } from "../assets/signup.svg"
-import { Button, TextField, Typography } from '@mui/material'
+import { Alert, Button, TextField, Typography } from '@mui/material'
 import { AuthContext } from '../context/Auth'
 import API from '../utils/API'
 import { useNavigate } from "react-router-dom";
@@ -14,25 +14,26 @@ const Login = () => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const { user,login,logout ,auth} = useContext(AuthContext);
+  const [alert,setAlert] = useState(0); // zero means no alert 1 means success 2 means error
+  const [msg,setMsg] = useState("")
   let navigate = useNavigate();
 
 
   const HandleSubmit = async (e)=>
   {
-
+    setAlert(0)
     e.preventDefault();
     const res = await API.login({email,password});
     console.log(res)
     if(res.status === 'Success' && res?.data ){
       login(res.data);
-      navigate('/board')
       setEmail('');
       setPassword('');
+      setTimeout(() =>navigate('/board'),500)
     }
     else{
-      /**
-       * TODO: Handle login failure
-       */
+       setAlert(2)
+       setMsg(res.message);
     }
   }
   useEffect(()=>{
@@ -49,6 +50,11 @@ const Login = () => {
             <Illustration/>
           </div>
           <h3>Login</h3>
+          {
+            alert!==0&&<Alert severity={alert===1 ? "success":"error"} color={alert===1 ? "success":"error"}>
+            {msg}
+          </Alert>
+          }
           <form className='login-form' onSubmit={HandleSubmit}>
             <TextField
               onChange={e=>setEmail(e.target.value)}

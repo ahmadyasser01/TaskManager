@@ -22,8 +22,12 @@ const Navbar = () => {
   }
   return (
     <div className='navbar'>
-      <h1> Blue Task Manager</h1>
-      <Button onClick={HandleLogout}>Logout</Button>
+      <h3> Blue Task Manager</h3>
+      <Button 
+      onClick={HandleLogout}
+      sx={{backgroundColor:"#FFF"}}
+      
+      >Logout</Button>
     </div>
   )
 }

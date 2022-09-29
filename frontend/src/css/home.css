@@ -30,6 +30,7 @@
 .home-main section{
     width: 50%;
 }
+
 .hero-text {
     font-size: 50px;
 }
@@ -40,4 +41,24 @@
     align-items:flex-start;
     height: 100%;
     gap:1.5rem
+}
+
+@media all and (max-width: 999px) {
+    .home-main{
+        display:flex;
+        flex-direction: column;
+        justify-content:center;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .home-main section {
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .hero-text {
+        font-size: 2.5rem;
+    }
 }
