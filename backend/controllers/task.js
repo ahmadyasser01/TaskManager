@@ -4,7 +4,7 @@ import { success,fail,filterObj,checkEmptyObject } from "../utils/apiUtils.js";
 
 export const  getAllTasks = async (req,res)=>{
     try {
-        const tasks = await Task.find({owner:req.user._id});
+        const tasks = await Task.find({owner:req.user._id}).sort({priority: "descending"});
 
         if(!tasks) throw newError("No tasks found");
 
