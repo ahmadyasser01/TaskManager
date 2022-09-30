@@ -2,7 +2,7 @@ import axios from 'axios';
 let  options = {
     withCredentials: true,
     crossDomain: true,
-    headers:{'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
+    headers:{'Access-Control-Allow-Origin': 'https://ay01-taskmanager.herokuapp.com', 'Content-Type': 'application/json'}
 }
 class API {
     // axiosInstance = axios.create({
