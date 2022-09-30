@@ -10,7 +10,6 @@ const Verify = () => {
     const [msg,setMsg] = useState('Verfying...')
     const verify = async ()=>{
         const res = await API.verifyAccount(token);
-        console.log(res)
         if(res.status === "Success"){
             navigate('/login');
         }

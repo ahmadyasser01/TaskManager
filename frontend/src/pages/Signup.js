@@ -19,10 +19,9 @@ const Signup = () => {
   const [alert,setAlert] = useState(0); // zero means no alert 1 means success 2 means error
   const [msg,setMsg] = useState("")
   let navigate = useNavigate();
-  const { usr,login,logout ,auth} = useContext(AuthContext);
+  const { auth} = useContext(AuthContext);
 
   useEffect(()=>{
-    console.log(auth);
     if(auth) navigate('/board');
   },[])
 
@@ -35,14 +34,12 @@ const Signup = () => {
      * TODO: DO FORM VALIDATION IN THE FRONT-END
      */
     if(password !== confirmpassword){
-      console.log("password and confirmpassword are not the same");
       setAlert(2)
       setMsg("password and confirmpassword are not the same")
     }else{
       const res = await API.signup({username,email,password});
       if(res.status === "Success")
       {
-        console.log("from signup component res is  ", res);
         setUsername('');
         setEmail('');
         setPassword('');

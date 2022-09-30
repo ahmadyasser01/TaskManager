@@ -17,7 +17,6 @@ const ForgetPassword = () => {
       return;
     }
     const res = await API.forgotPassword(email);
-    console.log(res);
     if (res.status === "Success" ){
        setAlert(1);
        setMsg("Reset Token is sent successfully to your email");

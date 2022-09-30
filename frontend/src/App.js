@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import API from './utils/API';
 import { LinearProgress } from '@mui/material';
 import Verify from './pages/Verify';
+import NotFound from './pages/NotFound';
 function App() {
   const { user,login,logout ,auth} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState(true);
@@ -43,8 +44,7 @@ function App() {
           <Route path='/resetPassword/:token' element={<ResetPassword/>}/>
           <Route path='/board' element={<Board/>}/>
           <Route path='/verify/:token' element={<Verify/>}/>
-
-
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       }
      

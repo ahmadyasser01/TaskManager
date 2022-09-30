@@ -22,13 +22,11 @@ const ResetPassword = () => {
     e.preventDefault();
     if(password !== confirmpassword) 
     {
-      console.log("password and confirmpassword are not the same");
       setAlert(2)
       setMsg("password and confirmpassword are not the same")
 
     }
     const res = await API.resetPassword(password,token);
-    console.log(res);
     if (res.status === "Success" ){
       setAlert(1)
       setMsg("password Changed Successfully\n going to login again")

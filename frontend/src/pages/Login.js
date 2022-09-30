@@ -24,7 +24,6 @@ const Login = () => {
     setAlert(0)
     e.preventDefault();
     const res = await API.login({email,password});
-    console.log(res)
     if(res.status === 'Success'   ){
       if(res?.data?.verified)
       {
@@ -45,7 +44,6 @@ const Login = () => {
     }
   }
   useEffect(()=>{
-    console.log(auth);
     if(auth&&user.verified) navigate('/board');
   },[])
 

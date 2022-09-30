@@ -17,9 +17,9 @@ import { Alert } from '@mui/material';
 
 const Board = () => {
   let navigate = useNavigate();
-  const { user,login,logout ,auth} = useContext(AuthContext);
-  const {open, handleOpen, handleClose,update,setUpdate,setSelected,selected,taskId} = useContext(PopupContext)
-  const {tasks, lists, HandleData,HandleTasks,HandleLists,data,setData,listOrder} = useContext(TaskContext);
+  const { user, auth} = useContext(AuthContext);
+  const {open,  handleClose,update,selected,taskId} = useContext(PopupContext)
+  const {  HandleTasks,HandleLists,data,setData,listOrder} = useContext(TaskContext);
 
   useEffect(()=>{
   },[])
@@ -46,12 +46,10 @@ const Board = () => {
   const onDragEnd = result =>
   {
     const {destination , source, draggableId} = result;
-    console.log(result)
     if(!destination) return;
     if(destination.droppableId === source.droppableId && destination.index === source.index) return;
     const start = data.lists[source.droppableId]
     const end = data.lists[destination.droppableId]
-    console.log(start,end,"send");
     if(start === end){
       const newTasksId = Array.from(start.tasks);
       newTasksId.splice(source.index, 1);
