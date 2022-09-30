@@ -17,7 +17,7 @@ app.enable('trust proxy');
 //CORS  OPTIONS
 
 const corsOptions ={
-    origin:process.env.FRONT_URL, 
+    origin:/https:\/\/(.+).vercel.app/, 
     credentials:true,            //access-control-allow-credentials:true
 }
 
