@@ -49,7 +49,7 @@ const Signup = () => {
         setTimeout(()=>{
           setAlert(0)
           navigate('/login')
-        },3000)
+        },500)
       }
     }
   }

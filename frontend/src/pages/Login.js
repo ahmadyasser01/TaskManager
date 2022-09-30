@@ -30,7 +30,7 @@ const Login = () => {
         login(res.data);
       setEmail('');
       setPassword('');
-      setTimeout(() =>navigate('/board'),500)
+      setTimeout(() =>navigate('/board'),100)
       }
       else {
         setAlert(2)

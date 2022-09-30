@@ -41,15 +41,10 @@ export const  deleteTask = async (req,res)=>{
 export const  updateTask = async (req,res)=>{
     try {
         const {id} = req.params;
-        console.log('====================================');
-        console.log(id);
-        console.log('====================================');
+
         const {_id:userId} = req.user;
         const filteredBody = filterObj(req.body, 'title',"description","priority","status");
         // CHECK IF OBJECT IS EMPTY
-        console.log('====================================');
-        console.log(filteredBody);
-        console.log('====================================');
         if(checkEmptyObject(filteredBody)) throw new Error('No updates found');
         const updateTask = await Task.findOneAndUpdate({_id:id,owner:userId}, filteredBody, {
             new: true,

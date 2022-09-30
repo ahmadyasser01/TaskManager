@@ -8,10 +8,10 @@ const NotFound = () => {
     let navigate = useNavigate();
     useEffect(() => {
         if(auth && user.verified){
-            setTimeout(() => navigate('/board'),2000)
+            setTimeout(() => navigate('/board'),100)
         }
         else {
-            setTimeout(() => navigate('/login'),2000)
+            setTimeout(() => navigate('/login'),100)
         }
     },[])
   return (

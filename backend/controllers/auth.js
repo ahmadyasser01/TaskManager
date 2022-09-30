@@ -16,7 +16,7 @@ const signToken = (id)=>{
 
 }
 
-const createSendToken = (user,statusCode,res)=>{
+const createSendToken = (user,statusCode,res,req)=>{
     /**
      * create token
      * create cookie 
@@ -25,7 +25,9 @@ const createSendToken = (user,statusCode,res)=>{
     const token = signToken(user._id);
     const cookieOptions = {
         expires:new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN*24*60*60*1000),
-        httpOnly:true
+        httpOnly:true,
+        secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+        sameSite:"None",
     };
     res.cookie('jwt',token,cookieOptions);
     user.password = undefined;
@@ -41,7 +43,7 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
     await user.save({ validateBeforeSave: false });
     // SEND TOKEN TO USER
     // const verifyUrl = `${req.protocol}://${req.get('host')}/api/users/verify/${verifyToken}`;
-    const verifyUrl = `http://localhost:3000/verify/${verifyToken}`;
+    const verifyUrl = `${process.env.FRONT_URL}/verify/${verifyToken}`;
     const message = `Verify Your Account go to this link to verify your account ${verifyUrl}`;
     try {
         await sendEmail({
@@ -53,8 +55,6 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
         })
         return res.status(200).json(success("Verify Token sent to Email"))
     } catch (error) {
-        console.log(error);
-
         user.verifyToken = undefined
         user.verifyTokenExpires = undefined
         await user.save({ validateBeforeSave: false });
@@ -64,16 +64,11 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
 const createAndSendPasswordReset = async (user,req,res)=>{
     try {
         //GENERATE RESET TOKEN
-        console.log("test");
-
         const resetToken = user.createPasswordResetToken();
         // SAVE USER
-        console.log("test passed",resetToken);
-
         await user.save({validateBeforeSave:false});
-        const resetURL = `http://localhost:3000/resetPassword/${resetToken}`;
+        const resetURL = `${process.env.FRONT_URL}/resetPassword/${resetToken}`;
         const message = `Reset Your Password go to this link to verify your account ${resetURL}`;
-        console.log(message);
         await sendEmail({
             email:user.email,
             subject:"Reset Your Password",
@@ -106,7 +101,6 @@ export const signup = async(req,res,next) => {
            return  CreateAndSendEmailVerification(newUser,req,res);
 
     } catch (error) {
-        console.log(error.message);
         res.status(500).json(fail(error.message));
     }
 }
@@ -125,11 +119,8 @@ export const verifyEmail = async (req,res) =>{
          user.verifyTokenExpires = undefined;
          await user.save();
         // SEND NEW JWT TOKEN
-        createSendToken(user,201,res)
+        createSendToken(user,201,res,req)
     } catch (error) {
-        console.log('====================================');
-        console.log(error.message);
-        console.log('====================================');
         res.status(500).json(fail(error.message))
     }
 }
@@ -155,7 +146,7 @@ export const login = async(req, res, next) => {
 
         }
         // CREATE AND SEND NEW JWT TOKEN
-        createSendToken(user,200,res);
+        createSendToken(user,200,res,req);
 
     } catch (error) {
         res.status(400).json(fail(error.message));
@@ -165,7 +156,9 @@ export const login = async(req, res, next) => {
 export const logout = async(req, res, next) => {
     res.cookie('jwt', 'xxxx', {
         expires: new Date(Date.now()),
-        httpOnly: true
+        httpOnly: true,
+        secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+        sameSite:"None",
       });      
       res.status(200).json(success("Logout successfully"));  
 }
@@ -249,10 +242,9 @@ export const resetPassword = async (req, res, next) =>{
          user.passwordResetExpires = undefined;
          await user.save();
          // SEND NEW JWT TOKEN
-         createSendToken(user,201,res)
+         createSendToken(user,201,res,req)
 
     } catch (error) {
-        console.log("Error",error);
         res.status(500).json({
             status:"Failed",
             message:error.message

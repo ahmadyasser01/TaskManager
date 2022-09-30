@@ -34,8 +34,8 @@ const Board = () => {
     if(!auth) navigate('/login')
     if(!user.verified) {
       setTimeout(()=>{
-        navigate('/login')
-      },3000)
+        
+      },100)
     }
     return ()=>{
     HandleTasks([])

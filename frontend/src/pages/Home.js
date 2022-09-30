@@ -37,7 +37,7 @@ const Home = () => {
           </section>
         </main>
         <footer>
-            created By
+            created By AY
         </footer>
 
       </div>
