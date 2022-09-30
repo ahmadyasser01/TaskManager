@@ -18,7 +18,6 @@ const UpdateTask = ({taskId,selected}) => {
     
     const {status} = await API.deleteTask(taskId)
     
-    console.log(taskId);
     if(status === 'Success')
     {
       let newTasks = Array.from(data.lists[selected].tasks);
@@ -28,16 +27,12 @@ const UpdateTask = ({taskId,selected}) => {
         ...data.lists[selected],
         tasks:newTasks
       }
-      console.log('====================================');
-      console.log(newList);
-      console.log('====================================');
+     
       const newTasksObj = {
         ...data.tasks
       }
       delete newTasksObj[taskId];
-      console.log('====================================');
-      console.log(newTasksObj);
-      console.log('====================================');
+
       setData(prev=>{
         return {
           ...prev,
@@ -57,7 +52,6 @@ const UpdateTask = ({taskId,selected}) => {
     const {status,data} = await API.getTask(taskId)
     if(status === 'Success')
     {
-      console.log(data);
       setTitle(data.title);
       setDescription(data.description);
       setPriority(data.priority);
@@ -72,7 +66,6 @@ const UpdateTask = ({taskId,selected}) => {
     e.preventDefault();
     const res = await API.updateTask(taskId, {title,description,priority});
 
-    console.log(res);
     if(res.status === "Success")
     {
       const newTasks = {

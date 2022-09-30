@@ -27,7 +27,9 @@ app.use(morgan('tiny'))
 //ROUTES
 app.use('/api/users',userRouter);
 app.use('/api/tasks',taskRouter)
-
+app.all('*', function(req, res){
+    res.status(404).send('failed');
+  });
 
 // SERVER
 connectDB(DBURI);
