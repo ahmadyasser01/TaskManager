@@ -14,7 +14,6 @@ const DBURI = process.env.MONGODB_URI ||'mongodb://127.0.0.1:27017';
 const app = express();
 // to enable cookies
 app.enable('trust proxy');
-console.log(process.env.FRONT_URL)
 //CORS  OPTIONS
 
 const corsOptions ={

@@ -55,8 +55,6 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
         })
         return res.status(200).json(success("Verify Token sent to Email"))
     } catch (error) {
-        console.log(error);
-
         user.verifyToken = undefined
         user.verifyTokenExpires = undefined
         await user.save({ validateBeforeSave: false });
@@ -66,16 +64,11 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
 const createAndSendPasswordReset = async (user,req,res)=>{
     try {
         //GENERATE RESET TOKEN
-        console.log("test");
-
         const resetToken = user.createPasswordResetToken();
         // SAVE USER
-        console.log("test passed",resetToken);
-
         await user.save({validateBeforeSave:false});
         const resetURL = `${process.env.FRONT_URL}/resetPassword/${resetToken}`;
         const message = `Reset Your Password go to this link to verify your account ${resetURL}`;
-        console.log(message);
         await sendEmail({
             email:user.email,
             subject:"Reset Your Password",
@@ -108,7 +101,6 @@ export const signup = async(req,res,next) => {
            return  CreateAndSendEmailVerification(newUser,req,res);
 
     } catch (error) {
-        console.log(error.message);
         res.status(500).json(fail(error.message));
     }
 }
@@ -129,9 +121,6 @@ export const verifyEmail = async (req,res) =>{
         // SEND NEW JWT TOKEN
         createSendToken(user,201,res,req)
     } catch (error) {
-        console.log('====================================');
-        console.log(error.message);
-        console.log('====================================');
         res.status(500).json(fail(error.message))
     }
 }
@@ -256,7 +245,6 @@ export const resetPassword = async (req, res, next) =>{
          createSendToken(user,201,res,req)
 
     } catch (error) {
-        console.log("Error",error);
         res.status(500).json({
             status:"Failed",
             message:error.message
