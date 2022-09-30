@@ -30,13 +30,11 @@ const ResetPassword = () => {
     const res = await API.resetPassword(password,token);
     console.log(res);
     if (res.status === "Success" ){
-      setAlert(2)
+      setAlert(1)
       setMsg("password Changed Successfully\n going to login again")
       setTimeout(()=>{
         navigate('/login')
-
-      },3000)
-
+      },500)
 
     }
     else{

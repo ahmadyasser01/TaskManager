@@ -114,6 +114,9 @@ const Signup = () => {
               Sign up
             </Button> 
             <div className='login-options'>
+              <Button size="small" onClick={()=>navigate('/forgetpassword')}>
+                Forgot Password?
+              </Button>
               <span>Have an account</span>
               <Button size="small"  onClick={()=>navigate('/login')}>
                 Login
