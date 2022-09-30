@@ -32,7 +32,6 @@ export const  deleteTask = async (req,res)=>{
         const {id} = req.params;
         const task = await Task.findOneAndDelete({_id:id,owner:req.user._id});
         if(!task) throw new Error("No tasks found");
-
         res.status(200).json(success(task));
     } catch (error) {
         res.status(404).json(fail(error.message));

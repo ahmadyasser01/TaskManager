@@ -47,10 +47,14 @@ const CreateAndSendEmailVerification = async (user,req,res) => {
         await sendEmail({
             email:user.email,
             subject:"Verify Your Account",
-            message
+            message,
+            title:"Verify Email",
+            link:verifyUrl
         })
         return res.status(200).json(success("Verify Token sent to Email"))
     } catch (error) {
+        console.log(error);
+
         user.verifyToken = undefined
         user.verifyTokenExpires = undefined
         await user.save({ validateBeforeSave: false });
@@ -72,8 +76,10 @@ const createAndSendPasswordReset = async (user,req,res)=>{
         console.log(message);
         await sendEmail({
             email:user.email,
-            subject:"Reset Your password",
-            message
+            subject:"Reset Your Password",
+            message,
+            title:"Reset Your Password",
+            link:resetURL
         })
         res.status(200).json(success("Reset Token sent to Email"))
 
@@ -100,6 +106,7 @@ export const signup = async(req,res,next) => {
            return  CreateAndSendEmailVerification(newUser,req,res);
 
     } catch (error) {
+        console.log(error.message);
         res.status(500).json(fail(error.message));
     }
 }
@@ -120,6 +127,9 @@ export const verifyEmail = async (req,res) =>{
         // SEND NEW JWT TOKEN
         createSendToken(user,201,res)
     } catch (error) {
+        console.log('====================================');
+        console.log(error.message);
+        console.log('====================================');
         res.status(500).json(fail(error.message))
     }
 }

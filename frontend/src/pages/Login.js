@@ -25,11 +25,19 @@ const Login = () => {
     e.preventDefault();
     const res = await API.login({email,password});
     console.log(res)
-    if(res.status === 'Success' && res?.data ){
-      login(res.data);
+    if(res.status === 'Success'   ){
+      if(res?.data?.verified)
+      {
+        login(res.data);
       setEmail('');
       setPassword('');
       setTimeout(() =>navigate('/board'),500)
+      }
+      else {
+        setAlert(2)
+        setMsg(res.data);
+        
+      }
     }
     else{
        setAlert(2)
@@ -62,7 +70,7 @@ const Login = () => {
               id='email'
               variant='outlined'
               placeholder='Email'
-              autoComplete='false'
+              autoComplete='off'
               sx={{padding:"2px"}}
               />
             <TextField
@@ -72,7 +80,7 @@ const Login = () => {
               id='password'
               variant='outlined'
               placeholder='Password'
-              autoComplete='false'
+              autoComplete='off'
               sx={{padding:"2px"}}
               />
             <Button variant='outlined' type="submit">

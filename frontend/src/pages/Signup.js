@@ -77,7 +77,7 @@ const Signup = () => {
               id='username'
               variant='outlined'
               placeholder='Username'
-              autoComplete='false'
+              autoComplete='off'
               sx={{padding:"2px"}}
             />
             <TextField
@@ -86,7 +86,7 @@ const Signup = () => {
               id='email'
               variant='outlined'
               placeholder='Email'
-              autoComplete='false'
+              autoComplete='off'
               sx={{padding:"2px"}}
             />
             <TextField
@@ -96,7 +96,7 @@ const Signup = () => {
               id='password'
               variant='outlined'
               placeholder='Password'
-              autoComplete='false'
+              autoComplete='off'
               sx={{padding:"2px"}}
             />
             <TextField
@@ -106,7 +106,7 @@ const Signup = () => {
               type='password'
               variant='outlined'
               placeholder='Confirm Password'
-              autoComplete='false'
+              autoComplete='off'
               sx={{padding:"2px"}}
             />      
             
