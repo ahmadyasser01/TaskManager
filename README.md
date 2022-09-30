@@ -1,7 +1,7 @@
 # TaskManager
 
-## ERD DIAGRAM
-![alt text](https://github.com/ahmadyasser01)
+## APP Preview
+![alt text](https://github.com/ahmadyasser01/TaskManager/blob/main/readme-assets/board.png)
 
 
 ## Getting Started
