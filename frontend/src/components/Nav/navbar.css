@@ -1,0 +1,9 @@
+.navbar {
+    padding:1.5rem 3rem 0.5rem;
+    max-height: 80px;
+    background: linear-gradient(to right, #ff00cc, #333399);
+    color:#FCFCFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

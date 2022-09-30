@@ -1,0 +1,72 @@
+.board {
+    width: 100vw;
+    height: 100vh;
+}
+.board-container {
+    padding:1.5rem 3rem;
+    background: linear-gradient(to right, #ff00cc, #333399);
+    min-height: 95vh;
+    display:flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow: auto;
+}
+
+.list-container{
+    padding:1rem 1rem 1.5rem 1rem;
+    background-color: #DDDFE7;
+    min-width:250px;
+    height: fit-content;
+    color:#1d3052
+}
+.list-container h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1d3052;
+}
+.cards-container {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 4px;
+}
+.card-container{
+    background-color: white;
+    width: 200px;
+    padding: 1rem;
+    border-radius: 4px;
+
+}
+.priority {
+    height: 20px;
+    text-align: center;
+    padding:2px 8px;
+    border-radius: 2px;
+}
+.high-priority {
+    background-color: #F27F77
+    ;
+    color: #622808;
+}
+.medium-priority {
+    background-color: #F5EB88;
+    color:#653408;
+}
+.low-priority {
+    background-color: #46F7B7;
+    color:#096343;
+
+
+
+}
+
+.add-task-popup form , .update-task-popup form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.card-options{
+    display: flex;
+    justify-content: space-between;
+}
