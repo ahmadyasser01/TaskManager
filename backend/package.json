@@ -5,7 +5,8 @@
   "description": "simple way to manage your tasks and todolist",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "ay",
   "license": "ISC",
